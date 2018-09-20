@@ -1,11 +1,7 @@
 <?php
 
 namespace app\UseCases\Chanel;
-use App\Http\Requests\RegisterRequest;
-use App\Entity\Cabinet\Channels\Channel;
-use App\Http\Requests\TelegramRequest;
 use App\UseCases\Interfaces\ChanelBase;
-use Illuminate\Http\Request;
 
 
 class TelegramBase implements ChanelBase
@@ -32,10 +28,10 @@ class TelegramBase implements ChanelBase
 
     }
 
-    public function check_admin_bot($token, $address)
+    public function check_admin_bot($url)
     {
 
-        $check_rights = json_decode('', true);
+        $check_rights = json_decode($url, true);
         if ($check_rights['result']['0']['status'] === 'administrator' ||
             $check_rights['result']['0']['can_post_messages'] === 'true'
         ) {

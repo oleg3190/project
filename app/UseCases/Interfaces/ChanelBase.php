@@ -7,8 +7,6 @@ interface ChanelBase
 {
     public function curl($url);
 
-    public function check_admin_bot($token,$address);
-
-
+    public function check_admin_bot($url);
 
 }

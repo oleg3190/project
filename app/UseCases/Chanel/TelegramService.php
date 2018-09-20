@@ -4,6 +4,7 @@ namespace app\UseCases\Chanel;
 use App\Entity\Cabinet\Channels\Channel;
 use App\Http\Requests\TelegramRequest;
 use app\UseCases\Chanel\TelegramBase as ChanelBase;
+//use App\UseCases\Interfaces\ChanelBase;
 
 class TelegramService
 {
@@ -50,9 +51,8 @@ class TelegramService
                 $check_admin_bot = $this->chanel
                     ->curl($this->chanel->botApi. $this->token .$this->chanel->get_admin. $this->address);
 
-
                 $check_admin_bot = $this->chanel
-                    ->check_admin_bot($this->token,$this->address);
+                    ->check_admin_bot($check_admin_bot);
 
 
                 if($check_admin_bot !== false){
@@ -103,7 +103,7 @@ class TelegramService
             $channel->fill($post);
 
             if ($channel->update()) {
-                dd($channel);
+
                 return redirect('channels')->with('status', 'Токен обновлен');
             }
 
