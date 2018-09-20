@@ -11,12 +11,10 @@ class Channel extends Model
     protected $fillable = ['token','description','name','user_id'];
 
 
-    //Methods
-    public $getMe = '/getMe';
-    const url = 'https://t.me/';
-    const botApi = 'https://api.telegram.org/bot';
-    const get_admin = '/getChatAdministrators?chat_id=@';
-    const getChat = '/getChat?chat_id=@';
+    public function saveChanel($chanel){
+        $channel = new Channel();
+        $channel->fill($chanel);
+    }
 
 
 

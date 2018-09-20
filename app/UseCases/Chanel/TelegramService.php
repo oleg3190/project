@@ -11,10 +11,12 @@ class TelegramService
     public $token;
     public $address;
     public $chanel;
+    public $methods;
 
-    public function __construct(ChanelBase $chanelBase)
+    public function __construct(ChanelBase $chanelBase, TelegramMethods $methods)
     {
         $this->chanel = $chanelBase;
+        $this->methods = $methods;
 
     }
 
@@ -25,7 +27,7 @@ class TelegramService
         $this->address = $request['token'];
 
         //проверка канала
-        $valid_chanel_check = $this->chanel->curl($this->chanel->getMe.$this->address);
+        $valid_chanel_check = $this->chanel->curl($this->methods->getMe.$this->address);
         $valid_chanel_check = strpos($valid_chanel_check ,'members');
 
 
@@ -33,7 +35,7 @@ class TelegramService
 
             //проверка токена
             $check_token = $this->chanel
-                ->curl($this->chanel->botApi. $this->token. $this->chanel->getMe);
+                ->curl($this->methods->botApi. $this->token. $this->methods->getMe);
 
             $pos = strpos($check_token, 'first_name');
 
@@ -41,7 +43,7 @@ class TelegramService
 
                 //получаем имя канала
                 $get_channel_name =$this->chanel
-                    ->curl($this->chanel->botApi. $this->token. $this->chanel->getChat. $this->address);
+                    ->curl($this->methods->botApi. $this->token. $this->methods->getChat. $this->address);
 
                 $get_channel_name = json_decode($get_channel_name, true);
                 $channel_name = $get_channel_name['result']['title'];
@@ -49,7 +51,7 @@ class TelegramService
 
                 //проверяем является ли бот администратором
                 $check_admin_bot = $this->chanel
-                    ->curl($this->chanel->botApi. $this->token .$this->chanel->get_admin. $this->address);
+                    ->curl($this->methods->botApi. $this->token .$this->methods->get_admin. $this->address);
 
                 $check_admin_bot = $this->chanel
                     ->check_admin_bot($check_admin_bot);
@@ -92,7 +94,7 @@ class TelegramService
 
         //проверяем является ли бот администратором
         $check_admin_bot = $this->chanel
-            ->curl($this->chanel->botApi. $this->token .$this->chanel->get_admin. $this->address);
+            ->curl($this->methods->botApi. $this->token .$this->methods->get_admin. $this->address);
 
         if ($check_admin_bot !== false) {
             //сохраняемый пакет
@@ -100,7 +102,7 @@ class TelegramService
                 'token' => $this->token
             ];
             $channel = new Channel();
-            $channel->fill($post);
+            $channel->saveChanel($post);
 
             if ($channel->update()) {
 
