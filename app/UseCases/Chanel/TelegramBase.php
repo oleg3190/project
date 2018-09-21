@@ -1,8 +1,8 @@
 <?php
 
 namespace app\UseCases\Chanel;
-use App\UseCases\Interfaces\ChanelBase;
 
+use App\UseCases\Chanel\Interfaces\ChanelBase;
 
 class TelegramBase implements ChanelBase
 {

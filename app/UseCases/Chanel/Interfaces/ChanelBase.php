@@ -1,7 +1,6 @@
 <?php
 
-namespace App\UseCases\Interfaces;
-
+namespace App\UseCases\Chanel\Interfaces;
 
 interface ChanelBase
 {
