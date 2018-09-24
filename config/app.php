@@ -124,7 +124,6 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        App\Providers\ChanelBaseProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
@@ -177,8 +176,6 @@ return [
     */
 
     'aliases' => [
-
-        'ChanelBase'=> app\UseCases\Chanel\TelegramBase::class,
 
         'Form'=> Collective\Html\FormFacade::class,
         'Html'=> Collective\Html\HtmlFacade::class,
