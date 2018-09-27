@@ -9,8 +9,6 @@ use App\UseCases\Chanel\Interfaces\ChanelBase as ChanelInterface;
 
 class TelegramService
 {
-    public $token;
-    public $address;
     public $chanel;
     public $methods;
 
@@ -23,24 +21,25 @@ class TelegramService
 
     public function ChanelAdd($request){
 
-        $this->token   = $request['token'];
-        $this->address = $request['description'];
-        $valid_chanel_check = $this->chanel->curl($this->methods->url. $this->address);
-        $valid_chanel_check = strpos($valid_chanel_check ,'members');
+        $token   = $request['token'];
+        $address = $request['description'];
 
+        $valid_chanel_check = $this->chanel->curl($this->methods->url. $address);
+        $valid_chanel_check = strpos($valid_chanel_check ,'members');
 
         if($valid_chanel_check !== false){
 
             //проверка токена
             $check_token = $this->chanel
-                ->curl($this->methods->botApi. $this->token. $this->methods->getMe);
-            $pos = strpos($check_token, 'first_name');
+                ->curl($this->methods->botApi. $token. $this->methods->getMe);
 
-            if ($pos !== false) {
+            $check_token = json_decode($check_token,true);
+
+            if ($check_token['ok']) {
 
                 //получаем имя канала
                 $get_channel_name =$this->chanel
-                    ->curl($this->methods->botApi. $this->token. $this->methods->getChat. $this->address);
+                    ->curl($this->methods->botApi. $token. $this->methods->getChat. $address);
 
                 $get_channel_name = json_decode($get_channel_name, true);
                 $channel_name = $get_channel_name['result']['title'];
@@ -48,7 +47,7 @@ class TelegramService
 
                 //проверяем является ли бот администратором
                 $check_admin_bot = $this->chanel
-                    ->curl($this->methods->botApi. $this->token .$this->methods->get_admin. $this->address);
+                    ->curl($this->methods->botApi. $token .$this->methods->get_admin. $address);
 
                 $check_admin_bot = $this->chanel
                     ->check_admin_bot($check_admin_bot);
@@ -58,8 +57,8 @@ class TelegramService
                     //сохраняемый пакет
                     $post = [
                         'name'        => $channel_name,
-                        'description' => $this->address,
-                        'token'       => $this->token
+                        'description' => $address,
+                        'token'       => $token
                     ];
 
                     //сохраняем полученные данные
@@ -75,7 +74,7 @@ class TelegramService
                 }
 
             } else {
-                return $save = 'неправильные токен';
+                return $save = 'неправильный токен';
             }
 
 
@@ -88,18 +87,17 @@ class TelegramService
 
     public function TokenEdit($request){
 
-        $this->token   = $request['description'];
-        $this->address = $request['token'];
-
+        $token   = $request['description'];
+        $address = $request['token'];
 
         //проверяем является ли бот администратором
         $check_admin_bot = $this->chanel
-            ->curl($this->methods->botApi. $this->token .$this->methods->get_admin. $this->address);
+            ->curl($this->methods->botApi. $token .$this->methods->get_admin. $address);
 
         if ($check_admin_bot !== false) {
             //сохраняемый пакет
             $post = [
-                'token' => $this->token
+                'token' => $token
             ];
             $channel = new Channel();
             $channel->fill($post);

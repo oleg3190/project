@@ -2,6 +2,10 @@
 <div class="row">
     <div class="col-md-8">
 
+            @include('cabinet.events')
+            @yield('content')
+
+
     @if($channels)
 
         <table class="table table-hover table-striped">

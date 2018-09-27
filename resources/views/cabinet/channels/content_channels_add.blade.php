@@ -14,19 +14,10 @@
 					@endforeach
 			</ul>
 		</div>
-
 		@endif
 
-		@if(isset($status))
-
-			<div class="alert alert-danger">
-				<ul>
-						<li>{{$status}}</li>
-				</ul>
-			</div>
-
-		@endif
-
+		@include('cabinet.events')
+		@yield('content')
 
 	{!! Form::open(['url' => route('channelAdd'),'class'=>'form-horizontal','method'=>'POST','enctype'=>'multipart/form-data']) !!}
 

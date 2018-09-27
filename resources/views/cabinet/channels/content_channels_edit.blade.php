@@ -3,6 +3,10 @@
 	<div class="row">
 		<div class="col-md-8">
 
+			@include('cabinet.events')
+			@yield('content')
+
+
 <div class="wrapper container-fluid">
 
 	{!! Form::open(['url' => route('channelEdit',['channel'=> $channel['id']]),'class'=>'form-horizontal','method'=>'POST','enctype'=>'multipart/form-data']) !!}

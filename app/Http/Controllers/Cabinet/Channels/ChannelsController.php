@@ -57,25 +57,26 @@ class ChannelsController extends Controller
             switch ($ChanelAdd){
                 case 'Сохранен';
                     return redirect()->route('channel')
-                        ->with('status', 'Канал добавлен');
+                        ->with('success', 'Канал успешно добавлен!');
                     break;
 
                 case 'нет прав';
                     return redirect()->route('channelAdds')
-                        ->with('status', 'Телеграм бот не имеет достаточно прав');
+                        ->with('danger', 'Телеграм бот не имеет достаточно прав!');
                     break;
 
                 case 'нет канала';
-                    return redirect()->route('channelAdds');
+                    return redirect()->route('channelAdds')->with('danger', 'Такой канал не существует!');
                     break;
 
                 case 'неправильный токен';
-                    return redirect()->route('channelAdds');
+                    return redirect()->route('channelAdds')->with('danger', 'Токен не действителен!');
+
                     break;
 
             }
         }else{
-            return redirect()->route('channelAdds')->with('status', 'Такой канал уже есть');
+            return redirect()->route('channelAdds')->with('danger', 'Такой канал уже есть!');
         }
 
     }
@@ -83,48 +84,39 @@ class ChannelsController extends Controller
     public function edit(Channel $channel,TelegramRequest $request)
     {
 
-
         if ($request->isMethod('delete')) {
 
             $channel->delete();
-            return redirect('channels')->with('status', 'Канал удален');
+            return redirect('channels')->with('success', 'Канал успешно удален!');
         }
 
 
 
         if ($request->isMethod('post')) {
-            $input = $request->except('_token');
+            $request = $request->except('_token');
 
-            $tokenChanged   = Channel::where('token',$request->token)->first();
-
+            $tokenChanged = Channel::where('token',$request->token)->first();
 
             //если были изменения
             if(!$tokenChanged){
 
-
-
-            $channel_js = json_decode($channel,true);
-
             //проверка токена
             $tokenEdit = $this->service->TokenEdit($request);
-
-
 
                 switch ($tokenEdit) {
 
                     case 'Токен обновлен';
                         return redirect()->route('channel')
-                            ->with('status', 'Токен обновлен');
+                            ->with('success', 'Токен успешно обновлен!');
                         break;
 
                     case 'нет прав';
                         return redirect()->route('channelEdit')
-                            ->with('status', 'Телеграм бот не имеет достаточно прав');
+                            ->with('danger', 'Телеграм бот не имеет достаточно прав!');
                         break;
                 }
         }
         }
-
 
         if(view()->exists('cabinet.channels.channels_edit')){
 
