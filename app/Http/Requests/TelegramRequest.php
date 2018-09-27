@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 class TelegramRequest extends FormRequest
 {
     public function authorize()
-    {/*
-        $Channel = Channel::find($this->route('channel'));
-        $user_id =
-        if ()
-       */
+    {
         return true;
     }
 
@@ -27,9 +23,9 @@ class TelegramRequest extends FormRequest
     public function messages()
     {
         return $messages =[
-            'required'=>'Поле обязательно к заполнению',
-            'unique'  =>'Поле должно быть уникальным',
-            'token'   =>'В имени токена имеются пробелы',
+            'required'=>'Поле обязательно к заполнению!',
+            'unique'  =>'Канал с таким именем уже сущестует!',
+            'token'   =>'В имени токена имеются пробелы!',
             'description'  =>'Неправильно указан адрес канала! Адресс должен содержать только буквы ',
         ];
     }

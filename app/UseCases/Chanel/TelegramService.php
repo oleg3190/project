@@ -1,10 +1,11 @@
 <?php
 
-namespace app\UseCases\Chanel;
+namespace App\UseCases\Chanel;
 use App\Entity\Cabinet\Channels\Channel;
 use App\Http\Requests\TelegramRequest;
-use app\UseCases\Chanel\TelegramBase as ChanelBase;
-//use App\UseCases\Interfaces\ChanelBase;
+
+use App\UseCases\Chanel\Interfaces\ChanelBase as ChanelInterface;
+
 
 class TelegramService
 {
@@ -13,7 +14,7 @@ class TelegramService
     public $chanel;
     public $methods;
 
-    public function __construct(ChanelBase $chanelBase, TelegramMethods $methods)
+    public function __construct(ChanelInterface $chanelBase, TelegramMethods $methods)
     {
         $this->chanel = $chanelBase;
         $this->methods = $methods;
@@ -22,12 +23,9 @@ class TelegramService
 
     public function ChanelAdd($request){
 
-
-        $this->token   = $request['description'];
-        $this->address = $request['token'];
-
-        //проверка канала
-        $valid_chanel_check = $this->chanel->curl($this->methods->getMe.$this->address);
+        $this->token   = $request['token'];
+        $this->address = $request['description'];
+        $valid_chanel_check = $this->chanel->curl($this->methods->url. $this->address);
         $valid_chanel_check = strpos($valid_chanel_check ,'members');
 
 
@@ -36,7 +34,6 @@ class TelegramService
             //проверка токена
             $check_token = $this->chanel
                 ->curl($this->methods->botApi. $this->token. $this->methods->getMe);
-
             $pos = strpos($check_token, 'first_name');
 
             if ($pos !== false) {
@@ -78,15 +75,18 @@ class TelegramService
                 }
 
             } else {
-                return $save = 'нет канала';
+                return $save = 'неправильные токен';
             }
 
-        };
+
+        }else {
+            return $save = 'нет канала';
 
 
-    }
+    }}
 
-    public function TokenEdit(TelegramRequest $request){
+
+    public function TokenEdit($request){
 
         $this->token   = $request['description'];
         $this->address = $request['token'];
@@ -102,18 +102,15 @@ class TelegramService
                 'token' => $this->token
             ];
             $channel = new Channel();
-            $channel->saveChanel($post);
+            $channel->fill($post);
 
             if ($channel->update()) {
-
-                return redirect('channels')->with('status', 'Токен обновлен');
+                    return $save = 'обновлен';
+            }else{
+                return $save = 'нет прав';
             }
 
-
-        } else {
-            return redirect('channels')->with('status', 'Телеграм бот не имеет достаточно прав');
-        }
-
+    }
     }
 
 }

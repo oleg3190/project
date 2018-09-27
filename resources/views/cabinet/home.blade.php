@@ -39,9 +39,9 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.0/holder.js"></script>
 
     <!-- Pace.js -->
-    <script src="{!! asset('js/pace/pace.min.js') !!}"></script>
+    <script src="{!! asset('/js/pace/pace.min.js') !!}"></script>
 
-    <script src="{!! asset('js/demo.js') !!}"></script>
+    <script src="{!! asset('/js/demo.js') !!}"></script>
 
 
     <!-- Custom styling -->
@@ -63,14 +63,11 @@
 
 
 
-
-
-
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-        <script src="{!! asset('assets/js/bootstrap.min.js') !!}"></script>
-        <script src="{!! asset('assets/js/pixeladmin.min.js') !!}"></script>
+        <script src="{!! asset('/assets/js/bootstrap.min.js') !!}"></script>
+        <script src="{!! asset('/assets/js/pixeladmin.min.js') !!}"></script>
 
         <script>
             // -------------------------------------------------------------------------

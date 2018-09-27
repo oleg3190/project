@@ -39,16 +39,10 @@ Route::group(['prefix'=> 'channels',
               'namespace'=>'Cabinet\Channels',
               'middleware'=>['auth'],
 ],function (){
-    Route::get('/',['uses'=>'ChannelsController@execute','as'=> 'channel']);
-
-
-
-
-    Route::post('/add', ['uses'=>'ChannelsAddController@execute','as'=>'channelAdd']);
-
-    Route::match(['post','delete'],'/edit/{channel}',['uses'=>'ChannelsEditController@execute','as'=>'channelEdit']);
-
-    Route::get('/add',['uses'=>'ChannelsAddController@chanelAdd','as'=> 'channelAdds']);
+    Route::get('/',['uses'=>'ChannelsController@show','as'=> 'channel']);
+    Route::post('/add', ['uses'=>'ChannelsController@chanelAdd','as'=>'channelAdd']);
+    Route::match(['post','get','delete'],'/edit/{channel}',['uses'=>'ChannelsController@edit','as'=>'channelEdit']);
+    Route::get('/add',['uses'=>'ChannelsController@chanelAddform','as'=> 'channelAdds']);
 
 });
 

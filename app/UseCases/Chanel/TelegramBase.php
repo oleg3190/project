@@ -1,6 +1,6 @@
 <?php
 
-namespace app\UseCases\Chanel;
+namespace App\UseCases\Chanel;
 
 use App\UseCases\Chanel\Interfaces\ChanelBase;
 

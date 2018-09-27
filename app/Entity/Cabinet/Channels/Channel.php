@@ -11,12 +11,6 @@ class Channel extends Model
     protected $fillable = ['token','description','name','user_id'];
 
 
-    public function saveChanel($chanel){
-        $channel = new Channel();
-        $channel->fill($chanel);
-    }
-
-
 
 }
 

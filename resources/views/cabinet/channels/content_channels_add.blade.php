@@ -17,6 +17,16 @@
 
 		@endif
 
+		@if(isset($status))
+
+			<div class="alert alert-danger">
+				<ul>
+						<li>{{$status}}</li>
+				</ul>
+			</div>
+
+		@endif
+
 
 	{!! Form::open(['url' => route('channelAdd'),'class'=>'form-horizontal','method'=>'POST','enctype'=>'multipart/form-data']) !!}
 
