@@ -2,10 +2,18 @@
 
 namespace App\UseCases\Chanel;
 
-use App\UseCases\Chanel\Interfaces\ChanelBase;
+use App\Entity\Cabinet\Channels\Channel;
+use App\UseCases\Interfaces\ChanelBase;
 
 class TelegramBase implements ChanelBase
 {
+    private $chanel;
+
+    public function __construct()
+    {
+        $this->chanel = new Channel();
+    }
+
     public function curl($url)
     {
 
@@ -34,6 +42,25 @@ class TelegramBase implements ChanelBase
             return $check_rights = '0';
         }
 
+    }
+
+    public function save($chanel){
+
+        $this->chanel->fill($chanel);
+        if($this->chanel->save()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function update($chanel){
+        $this->chanel->fill($chanel);
+        if($this->chanel->update()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

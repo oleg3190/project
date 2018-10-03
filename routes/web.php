@@ -47,3 +47,15 @@ Route::group(['prefix'=> 'channels',
 });
 
 
+Route::group(['prefix'=> 'victorians',
+    'namespace'=>'Cabinet\Victorians',
+    'middleware'=>['auth'],
+],function(){
+
+    Route::match(['post','get','delete'],'/victoriansAdd',
+        ['uses'=>'VictoriansController@createVictorians','as'=>'victoriansAdd']);
+
+    Route::match(['post','get','delete'],'/questionsAdd',
+        ['uses'=>'QuestionsController@createQuestions','as'=>'questionsAdd']);
+
+});

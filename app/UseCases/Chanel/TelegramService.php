@@ -4,23 +4,29 @@ namespace App\UseCases\Chanel;
 use App\Entity\Cabinet\Channels\Channel;
 use App\Http\Requests\TelegramRequest;
 
-use App\UseCases\Chanel\Interfaces\ChanelBase as ChanelInterface;
+use App\UseCases\Interfaces\ChanelBase as ChanelInterface;
+use Illuminate\Support\Facades\Auth;
 
 
 class TelegramService
 {
-    public $chanel;
-    public $methods;
+    private $chanel;
+    private $methods;
+    private $user_id = '1';
+
+
 
     public function __construct(ChanelInterface $chanelBase, TelegramMethods $methods)
     {
         $this->chanel = $chanelBase;
         $this->methods = $methods;
-
     }
 
     public function ChanelAdd($request){
 
+        if(Auth::user()->id){
+            $this->user_id = Auth::user()->id;
+        }
         $token   = $request['token'];
         $address = $request['description'];
 
@@ -54,19 +60,19 @@ class TelegramService
 
 
                 if($check_admin_bot !== false){
-                    //сохраняемый пакет
-                    $post = [
-                        'name'        => $channel_name,
-                        'description' => $address,
-                        'token'       => $token
-                    ];
 
                     //сохраняем полученные данные
-                    $channel = new Channel();
-                    $channel->fill($post);
-
-                    if ($channel->save()) {
+                    if ($this->chanel->save($post =
+                        [
+                        'name'        => $channel_name,
+                        'description' => $address,
+                        'token'       => $token,
+                        'user_id'     => $this->user_id
+                        ]))
+                    {
                         return $save = 'Сохранен';
+                    }else{
+                        return $save = 'Ошибка при сохранении';
                     }
 
                 }else{
@@ -95,20 +101,19 @@ class TelegramService
             ->curl($this->methods->botApi. $token .$this->methods->get_admin. $address);
 
         if ($check_admin_bot !== false) {
-            //сохраняемый пакет
-            $post = [
-                'token' => $token
-            ];
-            $channel = new Channel();
-            $channel->fill($post);
 
-            if ($channel->update()) {
+            if ($this->chanel->update($post =
+                [
+                'token' => $token
+                ])) {
                     return $save = 'обновлен';
             }else{
-                return $save = 'нет прав';
+                return $save = 'ошибка';
             }
 
-    }
+    }else{
+            return $save = 'нет прав';
+        }
     }
 
 }

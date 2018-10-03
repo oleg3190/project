@@ -124,6 +124,8 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+
+        App\Providers\VictoriansProvider::class,
         App\Providers\ChanelProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,

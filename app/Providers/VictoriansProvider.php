@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class ChanelProvider extends ServiceProvider
+class VictoriansProvider extends ServiceProvider
 {
 
     public function boot()
@@ -15,6 +15,6 @@ class ChanelProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind('App\UseCases\Interfaces\ChanelBase', 'App\UseCases\Chanel\TelegramBase');
+        $this->app->bind('App\UseCases\Interfaces\VictoriansInterface', 'App\UseCases\Victorians\VictoriansBase');
     }
 }

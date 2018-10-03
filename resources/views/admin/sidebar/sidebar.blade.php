@@ -26,6 +26,8 @@
             <ul class="px-nav-dropdown-menu">
                 <li class="px-nav-item"><a href="#"><span class="glyphicon glyphicon-user"></span><span class="px-nav-label">&nbsp;&nbsp;Аккаунт</span></a></li>
                 <li class="px-nav-item"><a href="{{route('channel')}}"><i class="dropdown-icon  fa fa-paper-plane"></i><span class="px-nav-label">&nbsp;&nbsp;Каналы</span></a></li>
+                <li class="px-nav-item"><a href="{{route('victoriansAdd')}}"><i class="dropdown-icon  fa fa-paper-plane"></i><span class="px-nav-label">&nbsp;&nbsp;Викторины</span></a></li>
+                <li class="px-nav-item"><a href="{{route('questionsAdd')}}"><i class="dropdown-icon  fa fa-paper-plane"></i><span class="px-nav-label">&nbsp;&nbsp;Вопросы</span></a></li>
 
             </ul>
         </li>
@@ -57,6 +59,7 @@
                 <ul class="dropdown-menu">
                     <li><a href=""><span class="label label-warning pull-xs-right"><i class="fa fa-asterisk"></i></span>Profile</a></li>
                     <li><a href="">Account</a></li>
+
                     <li><a href="{{route('channel')}}"><i class="dropdown-icon  fa fa-paper-plane"></i>&nbsp;&nbsp;Каналы</a></li>
                     <li class="divider"></li>
                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();

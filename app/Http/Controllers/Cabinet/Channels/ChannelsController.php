@@ -7,6 +7,7 @@ use App\Http\Requests\TelegramRequest;
 use App\UseCases\Chanel\TelegramService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ChannelsController extends Controller
 {
@@ -22,8 +23,7 @@ class ChannelsController extends Controller
 
         if(view()->exists('cabinet.channels.channels')){
 
-            $channels = Channel::all();
-
+            $channels = Channel::where('user_id',Auth::user()->id)->get();
             $data = [
                 'title'=>'Каналы',
                 'channels'=>$channels
@@ -46,7 +46,6 @@ class ChannelsController extends Controller
     public function chanelAdd(TelegramRequest $request)
     {
         $request->except('_token');
-
         $channelChanged = Channel::where('description',$request->description)->first();
 
         //если были изменения
@@ -55,6 +54,11 @@ class ChannelsController extends Controller
             $ChanelAdd = $this->service->ChanelAdd($request);
 
             switch ($ChanelAdd){
+                case 'Ошибка при сохранении';
+                    return redirect()->route('channel')
+                        ->with('danger', 'Ошибка при сохранении!');
+                    break;
+
                 case 'Сохранен';
                     return redirect()->route('channel')
                         ->with('success', 'Канал успешно добавлен!');
@@ -66,11 +70,13 @@ class ChannelsController extends Controller
                     break;
 
                 case 'нет канала';
-                    return redirect()->route('channelAdds')->with('danger', 'Такой канал не существует!');
+                    return redirect()->route('channelAdds')
+                        ->with('danger', 'Такой канал не существует!');
                     break;
 
                 case 'неправильный токен';
-                    return redirect()->route('channelAdds')->with('danger', 'Токен не действителен!');
+                    return redirect()->route('channelAdds')
+                        ->with('danger', 'Токен не действителен!');
 
                     break;
 
@@ -104,8 +110,12 @@ class ChannelsController extends Controller
             $tokenEdit = $this->service->TokenEdit($request);
 
                 switch ($tokenEdit) {
+                    case 'ошибка';
+                        return redirect()->route('channel')
+                            ->with('success', 'Ошибка!Попробуйте еще раз');
+                        break;
 
-                    case 'Токен обновлен';
+                    case 'обновлен';
                         return redirect()->route('channel')
                             ->with('success', 'Токен успешно обновлен!');
                         break;
