@@ -14,8 +14,6 @@ class TelegramService
     private $methods;
     private $user_id = '1';
 
-
-
     public function __construct(ChanelInterface $chanelBase, TelegramMethods $methods)
     {
         $this->chanel = $chanelBase;

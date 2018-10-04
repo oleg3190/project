@@ -26,9 +26,16 @@
             <ul class="px-nav-dropdown-menu">
                 <li class="px-nav-item"><a href="#"><span class="glyphicon glyphicon-user"></span><span class="px-nav-label">&nbsp;&nbsp;Аккаунт</span></a></li>
                 <li class="px-nav-item"><a href="{{route('channel')}}"><i class="dropdown-icon  fa fa-paper-plane"></i><span class="px-nav-label">&nbsp;&nbsp;Каналы</span></a></li>
-                <li class="px-nav-item"><a href="{{route('victoriansAdd')}}"><i class="dropdown-icon  fa fa-paper-plane"></i><span class="px-nav-label">&nbsp;&nbsp;Викторины</span></a></li>
-                <li class="px-nav-item"><a href="{{route('questionsAdd')}}"><i class="dropdown-icon  fa fa-paper-plane"></i><span class="px-nav-label">&nbsp;&nbsp;Вопросы</span></a></li>
 
+            </ul>
+        </li>
+
+        <li class="px-nav-item px-nav-dropdown">
+            <a href="#"><i class="px-nav-icon ion-ios-pulse-strong"></i><span class="px-nav-label">Викторины<span class="label label-danger">5</span></span></a>
+
+            <ul class="px-nav-dropdown-menu">
+                <li class="px-nav-item"><a href="{{route('victorians')}}"><i class="dropdown-icon  fa fa-paper-plane"></i><span class="px-nav-label">Все викторины</span></a></li>
+                <li class="px-nav-item"><a href="{{route('questionsAdd')}}"><i class="dropdown-icon  fa fa-paper-plane"></i><span class="px-nav-label">Добавить вопросы</span></a></li>
             </ul>
         </li>
 

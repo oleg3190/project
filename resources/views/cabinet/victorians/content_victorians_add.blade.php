@@ -35,14 +35,14 @@
 
 		<div class="form-group">
 
-			{!! Form::label('chanel','Выбор канала для викторины',['class' => 'col-xs-2 control-label'])   !!}
+			{!! Form::label('chanel','Выбор канала для викторины',['class' => 'col-xs-2 control-label','required'])   !!}
 
 			@if(count($channels) > 0)
 
 				@foreach($channels  as $k => $channel )
 
 					{{$channel->name}}
-					{!! Form::radio('chanel', 'value',true) !!}
+					{!! Form::radio('chanel', $channel->name,true) !!}
 
 					@endforeach
 

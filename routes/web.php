@@ -53,9 +53,23 @@ Route::group(['prefix'=> 'victorians',
 ],function(){
 
     Route::match(['post','get','delete'],'/victoriansAdd',
-        ['uses'=>'VictoriansController@createVictorians','as'=>'victoriansAdd']);
+        ['uses'=>'VictoriansController@create','as'=>'victoriansAdd'])
+    ;
+    Route::match(['delete'],'/victorians/destroy/{victorian}',
+        ['uses'=>'VictoriansController@destroy','as'=>'victoriansDestroy']);
 
-    Route::match(['post','get','delete'],'/questionsAdd',
-        ['uses'=>'QuestionsController@createQuestions','as'=>'questionsAdd']);
+    Route::match(['post','get'],'/victorians',
+        ['uses'=>'VictoriansController@show','as'=>'victorians']);
+
+
+    Route::match(['post','get'],'/questions/Add',
+        ['uses'=>'QuestionsController@create','as'=>'questionsAdd']);
+
+    Route::match(['delete'],'/questions/destroy{question}',
+        ['uses'=>'QuestionsController@destroy','as'=>'questionsDestroy']);
+
+    Route::match(['post','get'],'/{victorians}/questions',
+        ['uses'=>'QuestionsController@show','as'=>'questions']);
+
 
 });
