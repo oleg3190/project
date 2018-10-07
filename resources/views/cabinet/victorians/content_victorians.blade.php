@@ -35,7 +35,7 @@
                     <td>{{ $victorian->created_at }}</td>
                     <td><a href="{!!route('questions',['victorians'=>$victorian->id])!!}" class="btn btn-info">Вопросы</a></td>
                     <td>
-                        {!! Form::open(['url'=>route('victoriansDestroy',['victorian'=>$victorian->id]), 'class'=>'form-horizontal','method' => 'POST']) !!}
+                        {!! Form::open(['url'=>route('victoriansDestroy',['victorians'=>$victorian->id]), 'class'=>'form-horizontal','method' => 'POST']) !!}
 
                         {{ method_field('DELETE') }}
                         {!! Form::button('Удалить',['class'=>'btn btn-danger','type'=>'submit']) !!}

@@ -125,6 +125,7 @@ return [
          * Laravel Framework Service Providers...
          */
 
+        App\Providers\QuestionsProvider::class,
         App\Providers\VictoriansProvider::class,
         App\Providers\ChanelProvider::class,
         Collective\Html\HtmlServiceProvider::class,
