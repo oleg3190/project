@@ -5,7 +5,6 @@
             @include('cabinet.events')
             @yield('content')
 
-
     @if($questions)
 
         <table class="table table-hover table-striped">
@@ -15,7 +14,6 @@
                 <th>Описание</th>
                 <th>Картинка</th>
                 <th>Дата добавления</th>
-                <th>Удалить</th>
 
             </tr>
             </thead>
@@ -30,10 +28,8 @@
                     <td>{{ $question->created_at }}</td>
                     <td>
                         {!! Form::open(['url'=>route('questionsDestroy',['question'=>$question->id]), 'class'=>'form-horizontal','method' => 'POST']) !!}
-
                         {{ method_field('DELETE') }}
                         {!! Form::button('Удалить',['class'=>'btn btn-danger','type'=>'submit']) !!}
-
                         {!! Form::close() !!}
                     </td>
 
@@ -46,7 +42,7 @@
         </table>
     @endif
 
-     <p><a href="{!!route('questionsAdd')!!}" class="btn btn-info">Добавить вопрос</a></p>
+     <p><a href="{!!route('victorians')!!}" class="btn btn-info">Назад</a></p>
 
 </div>
 </div></div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cabinet\Victorians;
 use App\Entity\Cabinet\Channels\Channel;
+use App\Entity\Cabinet\Victorians\Question;
 use App\Entity\Cabinet\Victorians\Victorians;
 use App\Http\Requests\VictoriansRequest;
 use App\UseCases\Victorians\VictoriansService;
@@ -70,6 +71,8 @@ class VictoriansController extends Controller
 
         if ($request->isMethod('delete')) {
 
+
+            $question = Question::where('victorians_id',$request->victorians->id)->delete();
             $victorians->delete();
             return redirect('victorians')->with('success', 'Викторина успешно удалена!');
         }

@@ -3,19 +3,27 @@ window.onload = function on() {
 
     var buttonName = 1;
 
-    //кнопка онклик
+    //создаем кнопку
     var tag = document.getElementById('button');
 
     tag.onclick = function () {
         var button = document.getElementById('buttons');
 
         var input=document.createElement('input');
-        input.className = 'form-control';
+        input.className = 'form-control button';
         input.type  = 'text';
-        input.placeholder = 'button';
-        input.name = 'имя'+ buttonName;
+        input.placeholder = 'Имя кнопки';
+        input.name = 'button'+ buttonName;
         button.appendChild(input);
         buttonName++;
+
+        //проверяем колличество кнопок
+        var b=document.getElementById('1');
+        var show = document.getElementsByClassName("button").length; //Считает сколько тегов
+        document.forms['main'].number.value = show;
+
+        return false;
+
     };
 
 
@@ -30,11 +38,9 @@ window.onload = function on() {
 
         //выводим колличество символов в поле
         $("#counter").html(maxCount);
-
         $("#textArea").keyup(function() {
 
             var revText = this.value.length;
-
             if (this.value.length > maxCount)
             {
                 this.value = this.value.substr(0, maxCount);
@@ -44,6 +50,14 @@ window.onload = function on() {
             else {$("#counter").html(cnt);}
 
         });
+
+
+
+
+
+
+
+
 
 };
 

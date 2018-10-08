@@ -16,17 +16,13 @@
 					@endforeach
 			</ul>
 		</div>
-		@endif
+	@endif
 
 		@include('cabinet.events')
 		@yield('content')
 
-	{!! Form::open(['url' => route('victoriansAdd'),'class'=>'form-horizontal','method'=>'POST','enctype'=>'multipart/form-data']) !!}
+	{!! Form::open(['url' => route('questionsAdd',['victorians'=>$victorians]),'name'=>'main','class'=>'form-horizontal','method'=>'POST','enctype'=>'multipart/form-data']) !!}
 		{{csrf_field()}}
-
-
-
-
 
 
 	<div class="form-group">
@@ -40,17 +36,15 @@
 	</div>
 
 	<div class="form-group">
-
 		{!! Form::label('name','Картинка',['class' => 'col-xs-2 control-label'])   !!}
 
 		<div class="col-xs-8">
 			{!! Form::file('image',['id'=>'image']) !!}
 		</div>
-
 	</div>
 
-		<div class="form-group">
 
+		<div class="form-group">
 			{!! Form::label('name','Описание',['class' => 'col-xs-2 control-label'])   !!}
 
 			<div class="col-xs-8">
@@ -68,17 +62,14 @@
 		{!! Form::label('name','Кнопки',['class' => 'col-xs-2 control-label'])   !!}
 
 		<div class="col-xs-8" id="buttons">
-			{!! Form::text('button',old('name'),['class' => 'form-control','placeholder'=>'Имя кнопки'])!!}
+			{!! Form::text('button0',old('name'),['class' => 'form-control button','placeholder'=>'Имя кнопки'])!!}
 		</div>
 
+		<input type="hidden" id="1" name="number">
 		<button id="button">Добавить</button>
 
+
 	</div>
-
-
-
-
-
 
       <div class="form-group">
 	    <div class="col-xs-offset-2 col-xs-10">

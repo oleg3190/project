@@ -7,6 +7,7 @@ use App\Entity\Cabinet\Victorians\Victorians;
 use App\UseCases\Questions\QuestionsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use function MongoDB\BSON\toJSON;
 
 
 class QuestionsController extends Controller
@@ -22,10 +23,13 @@ class QuestionsController extends Controller
     public function create(Request $request)
     {
 
-        dd($request);
+
+        //dd($id);
 
         if($request->isMethod('post')){
             $request->except('_token');
+            $request->except('name');
+
 
             $questions = $this->service->create($request);
             if($questions){
@@ -42,8 +46,8 @@ class QuestionsController extends Controller
 
             $victorians = Victorians::where('user_id',1)->get();
             $data = [
-                'title'=>'Вопросы',
-                'channels'=>$victorians
+                'title'=>'Добавление вопросов',
+                'victorians'=>$victorians
             ];
 
             return view('cabinet.victorians.questions.questions_add',$data);

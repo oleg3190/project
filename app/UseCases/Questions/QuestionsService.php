@@ -15,10 +15,10 @@ class QuestionsService
     }
 
     public function create($request){
-        $victorians = $this->service->getInfo($request);
-        if($victorians){
-            $victorians = $this->service->save($victorians);
-            return $victorians;
+        $questions = $this->service->getInfo($request);
+        if($questions){
+            $questions = $this->service->save($questions);
+            return $questions;
         }
     }
 

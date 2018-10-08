@@ -4,7 +4,6 @@ namespace App\UseCases\Questions;
 
 use App\Entity\Cabinet\Victorians\Question;
 use App\UseCases\Interfaces\QuestionsInterface;
-use Illuminate\Support\Facades\Auth;
 
 class QuestionsBase implements QuestionsInterface
 {
@@ -15,25 +14,34 @@ class QuestionsBase implements QuestionsInterface
         $this->questions = new Question();
     }
 
-
     public function getInfo($request)
     {
-        $inc = 1;
 
-        if($request->button.$inc){
-            $buttons = [
-              'button'=>''
+        //всего кнопок
+        $number = $request->number;
+        if($number != '0' ){
+            $btn = $request->toArray();
+            $button['button'] = $btn['button0'];
+            do {
+                --$number;
+                for($inc = '1';$inc <=$number;$inc++){
+
+                    for($name = '1';$name <=$number;$name++){
+                        $button['button'.$inc] =  $request['button'.$name];
+                    }
+                }
+            }
+            while($number !='0');
+            $buttons = json_encode($button);
+
+            return $post = [
+                'name'         =>  $request->name,
+                'victorians_id'=>  $request->victorians_id,
+                'image'        =>  $request->image,
+                'text' =>  $request->descriptions,
+                'button'       =>  $buttons,
             ];
-        }
-
-        return $post = [
-            'name'         =>  $request->name,
-            'victorians_id'=>  $request->victorians_id,
-            'image'        =>  $request->image,
-            'descriptions' =>  $request->descriptions,
-            'button'       =>  $buttons,
-        ];
-
+        };
 
     }
 

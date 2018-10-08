@@ -11,29 +11,28 @@
         <table class="table table-hover table-striped">
             <thead>
             <tr>
-                <th>№</th>
                 <th>Имя</th>
                 <th>Канал</th>
                 <th>Время запуска</th>
                 <th>Время завершения</th>
                 <th>Дата добавления</th>
-                <th>Вопросы</th>
-                <th>Удалить</th>
-
             </tr>
             </thead>
             <tbody>
 
+            @if(isset($victorians))
             @foreach($victorians as $k => $victorian)
 
                 <tr>
-                    <td>{{ $victorian->id }}</td>
                     <td>{{ $victorian->name }}</td>
                     <td>{{ $victorian->chanel }}</td>
                     <td>{{ $victorian->timeStart }}</td>
                     <td>{{ $victorian->timeStop }}</td>
                     <td>{{ $victorian->created_at }}</td>
+
                     <td><a href="{!!route('questions',['victorians'=>$victorian->id])!!}" class="btn btn-info">Вопросы</a></td>
+
+                    <td><a href="{!!route('questionsAdd',['victorians'=>$victorian->id])!!}" class="btn btn-info">Добавить вопрос</a></td>
                     <td>
                         {!! Form::open(['url'=>route('victoriansDestroy',['victorians'=>$victorian->id]), 'class'=>'form-horizontal','method' => 'POST']) !!}
 
@@ -44,9 +43,8 @@
                     </td>
 
                 </tr>
-
             @endforeach
-
+           @endif
 
             </tbody>
         </table>
